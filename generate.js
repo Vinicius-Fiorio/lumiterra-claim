@@ -9,11 +9,11 @@ function generateRandomMnemonic() {
 
 function generateMultipleKeysFromSeed(mnemonic, numberOfKeys) {
   try {
-    const mnenomicInstance = Mnemonic.fromPhrase(mnemonic);
-    const masterNode = HDNodeWallet.fromMnemonic(mnenomicInstance);
+    const mnenomicInstance = Mnemonic.fromPhrase(mnemonic)
+    const masterNode = HDNodeWallet.fromMnemonic(mnenomicInstance, "44'/60'/0'/0");
 
     for (let i = 0; i < numberOfKeys; i++) {
-      const subwalletNode = masterNode.derivePath(`44'/60'/0'/0/${i}`);
+      const subwalletNode = masterNode.deriveChild(`${i}`);
       const privateKey = subwalletNode.privateKey;
       const publicKey = subwalletNode.address;
 
